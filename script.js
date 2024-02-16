@@ -32,16 +32,56 @@ const fetchAllPlayers = async () => {
 const fetchSinglePlayer = async (playerId) => {
   try {
     // MJ Input
+    const response = await fetch(`${APIURL}players/${playerId}`);
+    const player = await response.json();
+    renderSinglePlayer(player);
     // Provided
   } catch (err) {
     console.error(`Oh no, trouble fetching player #${playerId}!`, err);
   }
 };
 
+// Placeholder for render a sinlge player
+
+const renderSinglePlayer = (player) => {
+  const playerHTML = `
+  <div class="player-card">
+    <h2>${player.name}</h2>
+    <p>ID: ${player.id}</p>
+    <p>Breed: ${player.breed}</p>
+    <img src="${player.imageUrl}" alt="${player.name}" />
+    <p>Team: ${
+      player.teamId || "Unassigned"
+    }</p> <!-- Assuming you handle teamId display -->
+    <button id="back-to-all-players">Back to all players</button>
+  </div>
+`;
+  playerContainer.innerHTML = playerHTML;
+  document
+    .getElementById("back-to-all-players")
+    .addEventListener("click", async () => {
+      const players = await fetchAllPlayers();
+      renderAllPlayers(players);
+    });
+};
+
 // Placeholder for adding a new player
 const addNewPlayer = async (playerObj) => {
   try {
     // MJ Input
+    const response = await fetch(`${APIURL}players`, {
+      method: "POST", // Method is POST because we're adding a new player
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(playerObj), // Convert the playerObj object to a JSON string
+    });
+    const newPlayer = await response.json();
+    console.log("New player added:", newPlayer);
+    // refetches and renders all players to update the list
+    const players = await fetchAllPlayers();
+    renderAllPlayers(players);
+
     // Provided
   } catch (err) {
     console.error("Oops, something went wrong with adding that player!", err);
@@ -52,6 +92,19 @@ const addNewPlayer = async (playerObj) => {
 const removePlayer = async (playerId) => {
   try {
     // MJ Input
+    const response = await fetch(`${APIURL}players/${playerId}`, {
+      method: "DELETE", // Method is DELETE because we're removing a player
+    });
+
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+
+    console.log(`Player #${playerId} removed from the roster.`);
+    // Optionally, re-fetch and render all players to update the list
+    const players = await fetchAllPlayers();
+    renderAllPlayers(players);
+
     // Provided
   } catch (err) {
     console.error(
@@ -88,15 +141,16 @@ const renderAllPlayers = (playerList) => {
     let allPlayersHTML = "";
     playerList.forEach((player) => {
       allPlayersHTML += `
-                <div class="player-card">
-                    <h3>${player.name}</h3>
-                    <p>Position: ${player.position}</p>
-                    <button onclick="fetchSinglePlayer(${player.id})">See Details</button>
-                    <button onclick="removePlayer(${player.id})">Remove from Roster</button>
-                </div>
-            `;
+  <div class="player-card">
+    <h3>${player.name}</h3>
+    <p>ID: ${player.id}</p>
+    <img src="${player.imageUrl}" alt="Image of ${player.name}" />
+    <button onclick="fetchSinglePlayer(${player.id})">See Details</button>
+    <button onclick="removePlayer(${player.id})">Remove from Roster</button>
+  </div>
+`;
     });
-    playerContainer.innerHTML = allPlayersHTML; 
+    playerContainer.innerHTML = allPlayersHTML;
 
     // Provided
   } catch (err) {
@@ -112,7 +166,6 @@ const renderAllPlayers = (playerList) => {
 // Render the form for adding a new player
 const renderNewPlayerForm = () => {
   try {
-
     // MJ Input
     newPlayerFormContainer.innerHTML = `
     <form id="new-player-form">
@@ -124,23 +177,25 @@ const renderNewPlayerForm = () => {
     </form>
 `;
 
-document.getElementById('new-player-form').addEventListener('submit', async (e) => {
-    e.preventDefault();
-    const newPlayer = {
-        name: e.target.name.value,
-        position: e.target.position.value,
-    };
-    await addNewPlayer(newPlayer);
-    const players = await fetchAllPlayers();
-    renderAllPlayers(players);
-});
-    // Provided 
+    document
+      .getElementById("new-player-form")
+      .addEventListener("submit", async (e) => {
+        e.preventDefault();
+        const newPlayer = {
+          name: e.target.name.value,
+          position: e.target.position.value,
+        };
+        await addNewPlayer(newPlayer);
+        const players = await fetchAllPlayers();
+        renderAllPlayers(players);
+      });
+    // Provided
   } catch (err) {
     console.error("Uh oh, trouble rendering the new player form!", err);
   }
 };
 
-// Provided Initialize the Application. 
+// Provided Initialize the Application.
 const init = async () => {
   const players = await fetchAllPlayers();
   renderAllPlayers(players);
