@@ -1,30 +1,34 @@
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- CSS & JS -->
+    <script defer src="script.js"></script>
+    <link rel="stylesheet" href="style.css" />
 
-<head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PuppyBowl</title>
+  </head>
 
-  <!-- import JavaScript -->
-  <script defer src="script.js"></script>
+  <body>
+    <div id="title-h1">
+      <h1>PuppyBowl</h1>
+    </div>
+    <!-- form to add new players -->
+    <div id="new-player-form">
+      <div class="form">
+        <h2>Add a new player</h2>
+        <form id="addPlayer">
+          <label>Name:<input type="text" name="name" /></label>
+          <label>Breed:<input type="text" name="breed" /></label>
+          <label>Image URL:<input type="text" name="imageUrl" /></label>
+          <button>Add Player</button>
+        </form>
+      </div>
+    </div>
 
-  <!-- import CSS -->
-  <link rel="stylesheet" href="styles.css">
-
-  <title>PuppyBowl</title>
-</head>
-
-<body>
-
-  <!-- form to add new players -->
-  <div id="new-player-form"></div>
-  <!-- MJ Input -->
-  <div id="player-details"></div>
-
-  <!-- container for all players -->
-  <div id="all-players-container"></div>
-
-</body>
-
+    <!-- container for all players -->
+    <div id="all-players-container"></div>
+  </body>
 </html>
