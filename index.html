@@ -10,7 +10,7 @@
   <script defer src="script.js"></script>
 
   <!-- import CSS -->
-  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="style.css">
 
   <title>PuppyBowl</title>
 </head>
@@ -18,12 +18,29 @@
 <body>
 
   <!-- form to add new players -->
-  <div id="new-player-form"></div>
-  <!-- MJ Input -->
-  <div id="player-details"></div>
+  <div id="new-player-form">
+    <h3>Enter your puppy's info below to enter them into the Puppy Bowl!</h3>
+    <form id="addPlayer">
+      <label>
+        Name:
+        <input name="name" type="text">
+      </label>
+      <label>
+        Breed:
+        <input name="breed" type="text">
+      </label>
+      <label>
+        Image URL:
+        <input name="imageURL" type="text">
+      </label>
+      <button id="submit">Add Player</button>
+    </form>
+  </div>
 
   <!-- container for all players -->
-  <div id="all-players-container"></div>
+  <h1 class="text">This Year's Puppy Bowl Players!!!!</h1>
+  <div id="all-players-container">
+  </div>
 
 </body>
 

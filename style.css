@@ -1,5 +1,114 @@
-*{
-    padding: 0;
-    margin: 0;
-    box-sizing: border-box;
-  }
+body {
+  background-image: url('../Photos/turf-bg.jpg');
+  background-size: cover;
+}
+
+#all-players-container {
+  display: flex;
+  justify-content: space-evenly;
+  flex-wrap: wrap;
+}
+
+.player {
+  background-color: blueviolet;
+  margin: 5px;
+  width: 300px;
+  font-size: .7rem;
+  padding: 1%;
+  box-shadow: 5px 5px 5px 5px black;
+}
+
+.player>img {
+  width: 100%;
+}
+
+.player:hover {
+  transform: scale(1.1);
+}
+
+h3 {
+  color: whitesmoke;
+}
+
+h1 {
+  color: whitesmoke;
+}
+
+h2 {
+  color: whitesmoke;
+}
+
+form {
+  font-size: 1.1em;
+  margin-bottom: 2em;
+}
+
+.text {
+  color: black;
+  text-align: center;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  font-style: bold;
+  text-shadow: 1.5px 1.5px 1.5px blueviolet;
+}
+
+.button1 {
+  display: flex;
+  justify-content: center;
+  margin-left: 7em;
+  margin-bottom: 1em;
+  margin-top: 1em;
+}
+
+.button1:hover {
+  background-color: chartreuse;
+}
+
+.button2 {
+  display: flex;
+  justify-content: center;
+  margin-left: 6.4em;
+}
+
+.button2:hover {
+  background-color: chartreuse;
+}
+
+.button3 {
+  display: flex;
+  justify-content: center;
+  margin-left: 6.4em;
+  margin-top: 1em;
+}
+
+.button3:hover {
+  background-color: chartreuse;
+}
+
+#new-player-form>h3 {
+  text-align: center;
+  color: black;
+}
+
+#new-player-form {
+  border: .5em;
+  border-style: solid;
+  border-color: whitesmoke;
+  border-radius: 2em;
+  text-align: center;
+  margin-left: 10%;
+  margin-right: 10%;
+  font-style: bold;
+}
+
+form>button {
+  margin-left: 1em;
+}
+
+#submit:hover{
+  background-color: blueviolet;
+}
+
+form>label {
+margin-left: 1em;
+color: blueviolet;
+}
