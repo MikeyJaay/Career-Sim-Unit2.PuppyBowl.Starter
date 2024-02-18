@@ -1,114 +1,109 @@
 body {
-  background-image: url('../Photos/turf-bg.jpg');
+  background-image: url("../Photos/turf-bg.jpg");
   background-size: cover;
+  text-align: center;
 }
 
-#all-players-container {
-  display: flex;
-  justify-content: space-evenly;
-  flex-wrap: wrap;
+html {
+  --beige: #f9efdb;
+  --khaki: #ebd9b4;
+  --fern: #9dbc98;
+  --seafoam: #638889;
 }
 
-.player {
-  background-color: blueviolet;
-  margin: 5px;
-  width: 300px;
-  font-size: .7rem;
-  padding: 1%;
-  box-shadow: 5px 5px 5px 5px black;
-}
-
-.player>img {
-  width: 100%;
-}
-
-.player:hover {
-  transform: scale(1.1);
-}
-
-h3 {
-  color: whitesmoke;
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
 }
 
 h1 {
-  color: whitesmoke;
+  color: white;
+  font-size: 5rem;
 }
 
 h2 {
-  color: whitesmoke;
+  color: green;
+  font-size: 2rem;
 }
 
-form {
-  font-size: 1.1em;
-  margin-bottom: 2em;
+h3 {
+  color: snow;
 }
 
-.text {
-  color: black;
-  text-align: center;
-  font-family: Verdana, Geneva, Tahoma, sans-serif;
-  font-style: bold;
-  text-shadow: 1.5px 1.5px 1.5px blueviolet;
+p {
+  color: grey;
 }
 
-.button1 {
-  display: flex;
+img {
+  max-width: 14rem;
+  place-self: center;
+  border-radius: 5rem;
+}
+
+#all-players-container {
+  display: grid;
   justify-content: center;
-  margin-left: 7em;
-  margin-bottom: 1em;
-  margin-top: 1em;
+  grid-template-columns: auto auto auto auto;
+  grid-auto-columns: min-content;
+  column-gap: 5vw;
 }
-
-.button1:hover {
-  background-color: chartreuse;
-}
-
-.button2 {
+div.player {
   display: flex;
-  justify-content: center;
-  margin-left: 6.4em;
-}
-
-.button2:hover {
-  background-color: chartreuse;
-}
-
-.button3 {
-  display: flex;
-  justify-content: center;
-  margin-left: 6.4em;
-  margin-top: 1em;
-}
-
-.button3:hover {
-  background-color: chartreuse;
-}
-
-#new-player-form>h3 {
-  text-align: center;
-  color: black;
+  flex-direction: column;
+  justify-content: space-between;
+  background-color: rgb(246, 155, 75);
+  border-radius: 40px;
+  width: 20rem;
+  margin: 1rem;
+  padding: 0.75rem;
+  align-content: center;
 }
 
 #new-player-form {
-  border: .5em;
-  border-style: solid;
-  border-color: whitesmoke;
-  border-radius: 2em;
+  display: grid;
+}
+.form {
+  box-sizing: border-box;
+  align-content: center;
   text-align: center;
-  margin-left: 10%;
-  margin-right: 10%;
-  font-style: bold;
+  place-self: center;
+  flex-direction: column;
+  margin: 1rem;
+  background-color: var(--khaki);
+  border: 2px, blue;
+  border-radius: 10px;
+  padding: 1rem;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}
+.form > h2 {
+  font-size: 2.5rem;
 }
 
-form>button {
-  margin-left: 1em;
+input {
+  margin: 0.25rem;
+  border-radius: 10px;
+  border: none;
+  background-color: var(--beige);
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
 }
 
-#submit:hover{
-  background-color: blueviolet;
+label {
+  color: var(--seafoam);
+  text-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  font-size: 1.5rem;
+  font-weight: 600;
 }
 
-form>label {
-margin-left: 1em;
-color: blueviolet;
+button {
+  border: none;
+  border-radius: 2.5rem;
+  padding: 0.5rem;
+  margin: 0.25rem;
+  cursor: pointer;
+  font-weight: 600;
+  color: var(--seafoam);
+  background-color: var(--beige);
+  text-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
 }

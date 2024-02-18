@@ -1,47 +1,33 @@
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- CSS & JS -->
+    <script defer src="script.js"></script>
+    <link rel="stylesheet" href="style.css" />
 
-<head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PuppyBowl</title>
+  </head>
 
-  <!-- import JavaScript -->
-  <script defer src="script.js"></script>
+  <body>
+    <h1>PuppyBowl</h1>
 
-  <!-- import CSS -->
-  <link rel="stylesheet" href="style.css">
+    <!-- form to add new players -->
+    <div id="new-player-form">
+      <div class="form">
+        <h2>Add a new player</h2>
+        <form id="addPlayer">
+          <label>Name:<input type="text" name="name" /></label>
+          <label>Breed:<input type="text" name="breed" /></label>
+          <label>Image URL:<input type="text" name="imageUrl" /></label>
+          <button>Add Player</button>
+        </form>
+      </div>
+    </div>
 
-  <title>PuppyBowl</title>
-</head>
-
-<body>
-
-  <!-- form to add new players -->
-  <div id="new-player-form">
-    <h3>Enter your puppy's info below to enter them into the Puppy Bowl!</h3>
-    <form id="addPlayer">
-      <label>
-        Name:
-        <input name="name" type="text">
-      </label>
-      <label>
-        Breed:
-        <input name="breed" type="text">
-      </label>
-      <label>
-        Image URL:
-        <input name="imageURL" type="text">
-      </label>
-      <button id="submit">Add Player</button>
-    </form>
-  </div>
-
-  <!-- container for all players -->
-  <h1 class="text">This Year's Puppy Bowl Players!!!!</h1>
-  <div id="all-players-container">
-  </div>
-
-</body>
-
+    <!-- container for all players -->
+    <div id="all-players-container"></div>
+  </body>
 </html>
