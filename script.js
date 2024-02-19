@@ -1,10 +1,9 @@
 const playerContainer = document.getElementById("all-players-container");
-const newPlayerFormContainer = document.getElementById("new-player-form");
 const addPlayerForm = document.querySelector("#addPlayer");
 const cohortName = "mikeyjaay";
 const APIURL = `https://fsa-puppy-bowl.herokuapp.com/api/${cohortName}/`;
 
-state = {
+const state = {
   playerList: [],
   selectedPlayers: [],
 };
@@ -12,40 +11,42 @@ state = {
 const fetchAllPlayers = async () => {
   try {
     const response = await fetch(APIURL + "players");
-    const json = await response.json();
-    state.playerList = json.data;
+    const { data } = await response.json();
+    state.playerList = data.players;
   } catch (err) {
-    console.error("Uh oh, trouble fetching players!", err);
+    console.error("Error fetching players:", err);
   }
 };
 
 const fetchSinglePlayer = async (playerId) => {
   try {
     const response = await fetch(APIURL + "players/" + playerId);
-    const json = await response.json();
-    state.playerList = json.data;
+    const { data } = await response.json();
+    state.playerList = [data.player];
     renderSinglePlayer();
   } catch (err) {
-    console.error(`Oh no, trouble fetching player #${playerId}!`, err);
+    console.error(`Error fetching player #${playerId}:`, err);
   }
 };
 
-const addNewPlayer = async (playerObj) => {
-  playerObj.preventDefault();
+const addNewPlayer = async (event) => {
+  event.preventDefault();
+  const { name, breed, imageUrl } = addPlayerForm.elements;
+  const playerObj = {
+    name: name.value,
+    breed: breed.value,
+    imageUrl: imageUrl.value,
+  };
   try {
     await fetch(APIURL + "players", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        name: addPlayerForm.name.value,
-        breed: addPlayerForm.breed.value,
-        imageUrl: addPlayerForm.imageUrl.value,
-      }),
+      body: JSON.stringify(playerObj),
     });
-    init();
+    await init(); // Re-fetch and re-render player list
     addPlayerForm.reset();
   } catch (error) {
-    console.error("Oops, something went wrong with adding that player!", error);
+    console.error("Error adding player:", error);
   }
 };
 
@@ -56,40 +57,34 @@ const removePlayer = async (playerId) => {
     await fetch(APIURL + "players/" + playerId, {
       method: "DELETE",
     });
-    init();
+    await init(); // Re-fetch and re-render player list
   } catch (error) {
-    console.error(
-      `Whoops, trouble removing player #${playerId} from the roster!`,
-      error
-    );
+    console.error(`Error removing player #${playerId}:`, error);
   }
 };
 
 const renderAllPlayers = () => {
-  if (!state.playerList.players.length) {
+  const { playerList } = state;
+  if (!playerList.length) {
     playerContainer.innerHTML = "<li>No Players</li>";
     return;
   }
   try {
-    let playerCards = state.playerList.players.map((player) => {
+    const playerCards = playerList.map((player) => {
       const playerCard = document.createElement("div");
       playerCard.classList.add("player");
       playerCard.innerHTML = `
-        <img src=${player.imageUrl}> 
+        <img src="${player.imageUrl}"> 
+        <h2>${player.name}</h2>
       `;
-      const dogName = `<h2>${player.name}</h2>`;
       const buttonDiv = document.createElement("div");
       buttonDiv.classList.add("buttonDiv");
 
       // See Details Button
       const detailsButton = document.createElement("button");
       detailsButton.innerText = "See Details";
-      detailsButton.addEventListener("click", () =>
-        fetchSinglePlayer(player.id)
-      );
-
-      buttonDiv.innerHTML = dogName;
-      buttonDiv.append(detailsButton);
+      detailsButton.addEventListener("click", () => fetchSinglePlayer(player.id));
+      buttonDiv.appendChild(detailsButton);
 
       // Delete Player Button
       const deleteButton = document.createElement("button");
@@ -97,47 +92,43 @@ const renderAllPlayers = () => {
       deleteButton.addEventListener("click", () => {
         if (confirm("Do you want to delete?")) {
           removePlayer(player.id);
-        } else {
-          return false;
         }
       });
+      buttonDiv.appendChild(deleteButton);
 
-      buttonDiv.append(deleteButton);
-      playerCard.append(buttonDiv);
+      playerCard.appendChild(buttonDiv);
       return playerCard;
     });
-    playerContainer.replaceChildren(...playerCards);
+    playerContainer.innerHTML = ""; // Clear existing content
+    playerCards.forEach((card) => playerContainer.appendChild(card));
   } catch (err) {
-    console.error("Uh oh, trouble rendering players!", err);
+    console.error("Error rendering players:", err);
   }
 };
 
 const renderSinglePlayer = () => {
   try {
-    let player = state.playerList.player;
+    const player = state.playerList[0]; // Get the single player from the array
     const playerCard = document.createElement("div");
     playerCard.classList.add("player");
     playerCard.innerHTML = `
-    <img src=${player.imageUrl}>
-    <h2>${player.name}</h2>
-    <h3>Breed: ${player.breed}</h3>
-    <h3>Status: ${player.status}</h3>
-    <p>Created at: ${new Date(player.createdAt).toLocaleString()}</p>
-    <p>Updated at: ${new Date(player.updatedAt).toLocaleString()}</p>
-    <p>Team Id: ${player.teamId}</p>
-    <p>Cohort Id: ${player.cohortId}</p>
-  `;
+      <img src="${player.imageUrl}">
+      <h2>${player.name}</h2>
+      <h3>Breed: ${player.breed}</h3>
+      <h3>Status: ${player.status}</h3>
+      <p>Created at: ${new Date(player.createdAt).toLocaleString()}</p>
+      <p>Updated at: ${new Date(player.updatedAt).toLocaleString()}</p>
+      <p>Team Id: ${player.teamId}</p>
+      <p>Cohort Id: ${player.cohortId}</p>
+    `;
     const detailsButton = document.createElement("button");
     detailsButton.innerText = "Back to all players";
-    detailsButton.addEventListener("click", () => {
-      fetchAllPlayers();
-      init();
-    });
-    playerCard.append(detailsButton);
-
-    playerContainer.replaceChildren(playerCard);
+    detailsButton.addEventListener("click", () => init());
+    playerCard.appendChild(detailsButton);
+    playerContainer.innerHTML = ""; // Clear existing content
+    playerContainer.appendChild(playerCard);
   } catch (err) {
-    console.error("Uh oh, trouble rendering players!", err);
+    console.error("Error rendering player:", err);
   }
 };
 
