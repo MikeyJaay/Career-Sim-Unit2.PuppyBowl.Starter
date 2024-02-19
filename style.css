@@ -21,7 +21,11 @@ body {
   align-items: center; /* Centers children horizontally */
 }
 
-h1, h2, h3, p, label {
+h1,
+h2,
+h3,
+p,
+label {
   color: var(--text-color);
 }
 
@@ -67,7 +71,7 @@ div.player {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   transition: transform 0.3s ease;
 }
 
@@ -84,13 +88,13 @@ div.player:hover {
 }
 
 .form {
-  display: flex; 
+  display: flex;
   flex-direction: column;
   gap: 10px;
 }
 
-
-input, button {
+input,
+button {
   font-size: 1rem;
   margin: 0.25rem;
   border-radius: 10px;
@@ -107,6 +111,11 @@ button {
   color: var(--text-color);
   background-color: var(--main-color);
   transition: background-color 0.3s ease;
+  margin-top: 10px;
+}
+
+#add-pb {
+  margin-top: 30px;
 }
 
 button:hover {
