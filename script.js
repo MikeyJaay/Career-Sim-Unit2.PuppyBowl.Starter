@@ -1,7 +1,7 @@
 const playerContainer = document.getElementById("all-players-container");
 const newPlayerFormContainer = document.getElementById("new-player-form");
 const addPlayerForm = document.querySelector("#addPlayer");
-const cohortName = "mikeyjaay"; // Updated GitHub username
+const cohortName = "mikeyjaay";
 const APIURL = `https://fsa-puppy-bowl.herokuapp.com/api/${cohortName}/`;
 
 state = {

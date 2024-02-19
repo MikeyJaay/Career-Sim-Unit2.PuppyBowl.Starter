@@ -29,6 +29,15 @@ label {
   color: var(--text-color);
 }
 
+.h2-title {
+  font-size: 50px;
+}
+
+h2 {
+  font-size: 30px;
+  margin-top: 10px;
+}
+
 h1 {
   color: #556374;
   font-size: 5rem;
